@@ -21,11 +21,14 @@ public class TaskDomain implements Serializable {
     @Column(name = "tsk_id", nullable = false)
     private Integer id;
 
-     @Column(name = "clm_id_column", nullable = false)
-        private Integer id_column;
+    @ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
+    @JsonBackReference("task_column")
+    @JoinColumn(name = "clm_id_column", referencedColumnName = "clm_id", nullable = false)
+    private ColumnDomain column;
 
-//     @Column(name = "brd_id_board", nullable = false)
-//        private Integer id_board;
+
+    @Column(name = "brd_id_board", nullable = false)
+        private Integer id_board;
 
      @Column(name = "tsk_name", nullable = false)
         private String name;
@@ -41,12 +44,5 @@ public class TaskDomain implements Serializable {
 
      @Column(name = "tsk_updated_at", nullable = false)
         private Instant updated;
-
-     @ManyToOne()
-     @JoinColumn(name = "brd_id_board")
-    @JsonBackReference("task_board")
-    private BoardDomain boardDomain;
-
-
 
 }
