@@ -7,11 +7,14 @@ import java.time.LocalDateTime;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 @Data
 @Entity
 @Table(name = "krl_task")
+//@JsonIgnoreProperties(value = {"task_column","log_task_id"}, allowGetters = true)
+@JsonIgnoreProperties(value = {"task_column"}, allowGetters = true)
 public class TaskDomain implements Serializable {
 
     private static final long serialVersionUID = 1L;

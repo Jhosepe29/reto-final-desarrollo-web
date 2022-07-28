@@ -6,6 +6,7 @@ import org.sofka.mykrello.model.service.BoardService;
 import org.sofka.mykrello.utilities.MyResponseUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,7 +41,7 @@ public class BoardController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PostMapping(path = "/api/v1/board")
+    @PostMapping(path = "/api/v1/board", consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
     public ResponseEntity<MyResponseUtility> create(@RequestBody BoardDomain board) {
         response.data = boardService.create(board);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
