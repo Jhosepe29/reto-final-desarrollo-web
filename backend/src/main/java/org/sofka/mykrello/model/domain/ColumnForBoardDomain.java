@@ -16,7 +16,6 @@ import lombok.Data;
 @Entity
 @Table(name = "krl_column_for_board")
 public class ColumnForBoardDomain implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @PreUpdate
@@ -25,25 +24,22 @@ public class ColumnForBoardDomain implements Serializable {
             this.updatedAt = Instant.now();
     }
 
-    @OneToMany(targetEntity = TaskDomain.class)
-    List<TaskDomain> tasks = new ArrayList<>();
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cfb_id", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = BoardDomain.class, optional = false, cascade = CascadeType.DETACH)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = BoardDomain.class, optional = false,
+            cascade = CascadeType.DETACH)
     @JoinColumn(name = "brd_id_board", nullable = false)
-    @JsonBackReference(value = "board_columnsForBoard")
+    @JsonBackReference(value = "columnsForBoard")
     private BoardDomain board;
 
-
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = ColumnDomain.class, optional = false, cascade = CascadeType.DETACH)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = ColumnDomain.class, optional = false,
+            cascade = CascadeType.DETACH)
     @JoinColumn(name = "clm_id_column", nullable = false)
-    @JsonManagedReference(value = "column_columnForBoards")
+    @JsonManagedReference(value = "column-columnForBoard")
     private ColumnDomain column;
-    
 
     @Column(name = "cfb_created_at", nullable = false, updatable = false)
     private Instant createdAt = Instant.now();

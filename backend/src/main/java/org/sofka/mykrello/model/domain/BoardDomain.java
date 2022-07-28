@@ -38,6 +38,7 @@ public class BoardDomain implements Serializable {
     @Column(name = "brd_id", nullable = false)
     private Integer id;
 
+
     @Column(name = "brd_name", nullable = false, length = 100)
     private String name;
 
@@ -48,7 +49,7 @@ public class BoardDomain implements Serializable {
     private Instant updatedAt;
 
     @OneToMany(fetch = FetchType.LAZY, targetEntity = ColumnForBoardDomain.class, cascade = CascadeType.ALL, mappedBy = "board")
-    @JsonManagedReference(value = "board_columnsForBoard")
+    @JsonManagedReference(value = "columnsForBoard")
     private List<ColumnForBoardDomain> columnsForBoard = new ArrayList<>();
 
 }

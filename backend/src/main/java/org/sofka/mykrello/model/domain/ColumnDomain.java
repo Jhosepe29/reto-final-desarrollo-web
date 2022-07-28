@@ -39,19 +39,20 @@ public class ColumnDomain implements Serializable {
     @Column(name = "clm_updated_at")
     private Instant updatedAt;
 
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = LogDomain.class, cascade = CascadeType.ALL, mappedBy = "previous")
     @Transient
-    @OneToMany(fetch = FetchType.EAGER, targetEntity = LogDomain.class, cascade = CascadeType.ALL, mappedBy = "previous")
     @JsonManagedReference(value = "logPrevious")
     private List<LogDomain> logPrevious = new ArrayList<>();
 
-    @Transient
     @OneToMany(fetch = FetchType.LAZY, targetEntity = LogDomain.class, cascade = CascadeType.ALL, mappedBy = "current")
+    @Transient
     @JsonManagedReference(value = "logCurrent")
     private List<LogDomain> logCurrent = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, targetEntity = ColumnForBoardDomain.class, cascade = CascadeType.ALL, mappedBy = "column")
-    @JsonBackReference(value = "column_columnForBoards")
+    @JsonBackReference(value = "column-columnForBoard")
     private List<ColumnForBoardDomain> columnForBoards = new ArrayList<>();
+
 
     @OneToMany(targetEntity = TaskDomain.class,fetch = FetchType.EAGER, mappedBy = "column")
     @JsonManagedReference(value = "task_column")
