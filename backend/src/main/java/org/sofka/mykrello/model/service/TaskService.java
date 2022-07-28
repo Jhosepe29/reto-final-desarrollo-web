@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class TaskService implements TaskServiceInterface {
+public class TaskService  {
 
     @Autowired
     private LogService logService;
@@ -33,57 +33,61 @@ public class TaskService implements TaskServiceInterface {
     @Autowired
     private ColumnForBoardRepository columnForBoardRepository;
 
-    @Override
-    public List<TaskDomain> findAllTasksById(Integer idBoard) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public TaskDomain findById(Integer id) {
-        var task = taskRepository.findById(id);
-        return task.isPresent() ? task.get() : null;
-    }
-
-    @Override
-    @Transactional
-    public TaskDomain create(TaskDomain task) {
-        var newTask = taskRepository.save(task);
-        var tasks = columnRepository.findAll();
-        if (!tasks.isEmpty()) {
-            tasks.forEach(column -> {
-                var columnForBoard = new ColumnForBoardDomain();
-                columnForBoard.setColumn(column);
-                columnForBoard.save(columnForBoard);
-            });
-        }
-        return newTask;
-    }
 
 
-    @Override
-    public TaskDomain update(Integer id, TaskDomain task) {
-        task.setId(id);
-        return taskRepository.save(task);
-    }
 
-    @Override
-    public TaskDomain delete(Integer id) {
-        var optionalTask = taskRepository.findById(id);
-        if (optionalTask.isPresent()) {
-            var column = optionalTask.get();
-            var taskForColumn = column.getId();
-            if (!taskForColumn.equals()) {
-                taskForColumn.forEach((task) -> {
-                    columnForBoardRepository.delete(task);
-                });
-            }
-            columnRepository.delete((optionalColumn.get()));
-            return optionalColumn.get();
+//
+//    @Override
+//    public List<TaskDomain> findAllTasksById(Integer idBoard) {
+//        // TODO Auto-generated method stub
+//        return null;
+//    }
+//
+//    @Override
+//    @Transactional(readOnly = true)
+//    public TaskDomain findById(Integer id) {
+//        var task = taskRepository.findById(id);
+//        return task.isPresent() ? task.get() : null;
+//    }
+////
+//    @Override
+//    @Transactional
+//    public TaskDomain create(TaskDomain task) {
+//        var newTask = taskRepository.save(task);
+//        var tasks = columnRepository.findAll();
+//        if (!tasks.isEmpty()) {
+//            tasks.forEach(column -> {
+//                var columnForBoard = new ColumnForBoardDomain();
+//                columnForBoard.setColumn(column);
+//                columnForBoard.save(columnForBoard);
+//            });
+//        }
+//        return newTask;
+//    }
 
-        }
-        return null;
-    }
+//
+//    @Override
+//    public TaskDomain update(Integer id, TaskDomain task) {
+//        task.setId(id);
+//        return taskRepository.save(task);
+//    }
+
+//    @Override
+//    public TaskDomain delete(Integer id) {
+//        var optionalTask = taskRepository.findById(id);
+//        if (optionalTask.isPresent()) {
+//            var column = optionalTask.get();
+//            var taskForColumn = column.getId();
+//            if (!taskForColumn.equals()) {
+//                taskForColumn.forEach((task) -> {
+//                    columnForBoardRepository.delete(task);
+//                });
+//            }
+//            columnRepository.delete((optionalColumn.get()));
+//            return optionalColumn.get();
+//
+//        }
+//        return null;
+//    }
 
 }
