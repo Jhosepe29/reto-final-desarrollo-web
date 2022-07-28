@@ -2,16 +2,36 @@ package org.sofka.mykrello.model.service;
 
 import java.util.List;
 
+import org.sofka.mykrello.model.domain.BoardDomain;
+import org.sofka.mykrello.model.domain.ColumnForBoardDomain;
 import org.sofka.mykrello.model.domain.TaskDomain;
+import org.sofka.mykrello.model.repository.BoardRepository;
+import org.sofka.mykrello.model.repository.ColumnForBoardRepository;
+import org.sofka.mykrello.model.repository.ColumnRepository;
+import org.sofka.mykrello.model.repository.TaskRepository;
 import org.sofka.mykrello.model.service.interfaces.TaskServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class TaskService implements TaskServiceInterface {
 
     @Autowired
     private LogService logService;
+
+    @Autowired
+
+    private BoardRepository boardRepository;
+
+    @Autowired
+    private ColumnRepository columnRepository;
+
+    @Autowired
+    private TaskRepository taskRepository;
+
+    @Autowired
+    private ColumnForBoardRepository columnForBoardRepository;
 
     @Override
     public List<TaskDomain> findAllTasksById(Integer idBoard) {
@@ -20,26 +40,50 @@ public class TaskService implements TaskServiceInterface {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public TaskDomain findById(Integer id) {
-        // TODO Auto-generated method stub
-        return null;
+        var task = taskRepository.findById(id);
+        return task.isPresent() ? task.get() : null;
     }
 
     @Override
+    @Transactional
     public TaskDomain create(TaskDomain task) {
-        // TODO Auto-generated method stub
-        return null;
+        var newTask = taskRepository.save(task);
+        var tasks = columnRepository.findAll();
+        if (!tasks.isEmpty()) {
+            tasks.forEach(column -> {
+                var columnForBoard = new ColumnForBoardDomain();
+                columnForBoard.setColumn(column);
+                columnForBoard.save(columnForBoard);
+            });
+        }
+        return newTask;
     }
+
 
     @Override
     public TaskDomain update(Integer id, TaskDomain task) {
-        // TODO Auto-generated method stub
-        return null;
+        task.setId(id);
+        return taskRepository.save(task);
     }
 
     @Override
     public TaskDomain delete(Integer id) {
-        // TODO Auto-generated method stub
+        var optionalTask = taskRepository.findById(id);
+        if (optionalTask.isPresent()) {
+            var column = optionalTask.get();
+            var taskForColumn = column.getId();
+            if (!taskForColumn.equals()) {
+                taskForColumn.forEach((task) -> {
+                    columnForBoardRepository.delete(task);
+                });
+            }
+            columnRepository.delete((optionalColumn.get()));
+            return optionalColumn.get();
+
+        }
         return null;
     }
+
 }

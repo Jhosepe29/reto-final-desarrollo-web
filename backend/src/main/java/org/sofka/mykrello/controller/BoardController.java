@@ -1,6 +1,7 @@
 package org.sofka.mykrello.controller;
 
 import org.sofka.mykrello.model.domain.BoardDomain;
+import org.sofka.mykrello.model.repository.BoardRepository;
 import org.sofka.mykrello.model.service.BoardService;
 import org.sofka.mykrello.utilities.MyResponseUtility;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ public class BoardController {
 
     @Autowired
     private MyResponseUtility response;
+    @Autowired
+    private BoardRepository boardRepository;
 
     @Autowired
     private BoardService boardService;
