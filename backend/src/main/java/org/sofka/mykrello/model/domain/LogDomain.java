@@ -43,4 +43,8 @@ public class LogDomain implements Serializable {
     @Column(name = "log_created_at", nullable = false, updatable = false)
     private Instant createdAt = Instant.now();
 
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = LogDomain.class, optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "tsk_id_task", nullable = false, updatable = false)
+    @JsonBackReference(value = "task")
+    private TaskDomain task;
 }
