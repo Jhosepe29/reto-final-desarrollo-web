@@ -14,6 +14,12 @@ export class Utility{
    static getP(){
        return document.createElement("p")
    }
+   static getDiv(){
+       return document.createElement("div")
+   }
 
+   static getH2(){
+       return document.createElement("h2")
+   }
 
 }
