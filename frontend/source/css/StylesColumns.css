@@ -1,0 +1,45 @@
+#porHacer{
+    margin-top: 50px;
+    width: 350px;
+    height: 600px;
+    background: #C4FFFFFF;
+    position: absolute;
+    left: 3%;
+}
+#haciendo{
+    margin-top: 50px;
+    width: 350px;
+    height: 600px;
+    background: #c4ffff;
+    position: absolute;
+    left: 30%;
+}
+#hecho{
+    margin-top: 50px;
+    width: 350px;
+    height: 600px;
+    background: #C4FFFFFF;
+    position: absolute;
+   left: 57%;
+
+}
+h2{
+
+}
+
+.boton1{
+    text-shadow: 1px 1px 1px white;
+    border: 3px solid rgb(100,100,100,0.1);
+    margin-bottom: 20px;
+    padding: 20px;
+    width: 350px;
+    font-family: 'Poppins',sans-serif;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: black;
+    background-size: 300%;
+
+
+
+}

@@ -1,15 +1,15 @@
 'use strict';
 
-import {taskModel} from "./taskModel.mjs";
+
 
 export class ColumnModel{
     #name
-    #listaTask = new Array(taskModel);
+    #listaTask
 
 
-    constructor(name) {
+    constructor(name, listaTask) {
         this.#name = name;
-        this._name = name;
+        this.#listaTask = listaTask;
     }
 
     get listaTask() {
@@ -21,10 +21,10 @@ export class ColumnModel{
     }
 
     get name() {
-        return this._name;
+        return this.#name;
     }
 
     set name(value) {
-        this._name = value;
+        this.#name = value;
     }
 }

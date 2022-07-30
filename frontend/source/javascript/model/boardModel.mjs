@@ -1,15 +1,14 @@
 'use strict';
 
-import {columnModel} from "../model/columnModel.mjs";
 
 export class BoardModel{
     #name;
-    #listColumns = new Array(columnModel);
+    #listColumns;
 
 
-    constructor(name) {
+    constructor(name, listColumns) {
         this.#name = name;
-
+        this.#listColumns = listColumns;
     }
 
     get listColumns() {
